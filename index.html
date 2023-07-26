@@ -1,115 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Recipe Recommendation</title>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-<!--===============================================================================================-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Recipe App</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	
-	<div class="limiter">
-		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
-			<div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
-				<form class="login100-form validate-form flex-sb flex-w">
-					<span class="login100-form-title p-b-53">
-						Sign In With
-					</span>
-
-					<a href="#" class="btn-face m-b-20">
-						<i class="fa fa-facebook-official"></i>
-						Facebook
-					</a>
-
-					<a href="#" class="btn-google m-b-20">
-						<img src="images/icons/icon-google.png" alt="GOOGLE">
-						Google
-					</a>
-					
-					<div class="p-t-31 p-b-9">
-						<span class="txt1">
-							Username
-						</span>
-					</div>
-					<div class="wrap-input100 validate-input" data-validate = "Username is required">
-						<input class="input100" type="text" name="username" >
-						<span class="focus-input100"></span>
-					</div>
-					
-					<div class="p-t-13 p-b-9">
-						<span class="txt1">
-							Password
-						</span>
-
-						<a href="#" class="txt2 bo1 m-l-5">
-							Forgot?
-						</a>
-					</div>
-					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="password" name="pass" >
-						<span class="focus-input100"></span>
-					</div>
-
-					<div class="container-login100-form-btn m-t-17">
-						<button class="login100-form-btn">
-							Sign In
-						</button>
-					</div>
-
-					<div class="w-full text-center p-t-55">
-						<span class="txt2">
-							Not a member?
-						</span>
-
-						<a href="#" class="txt2 bo1">
-							Sign up now
-						</a>
-					</div>
-				</form>
-			</div>
+	<!-- Pills navs -->
+<ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+	<li class="nav-item" role="presentation">
+	  <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" href="#pills-login" role="tab"
+		aria-controls="pills-login" aria-selected="true">Login</a>
+	</li>
+	<li class="nav-item" role="presentation">
+	  <a class="nav-link" id="tab-register" data-mdb-toggle="pill" href="#pills-register" role="tab"
+		aria-controls="pills-register" aria-selected="false">Register</a>
+	</li>
+  </ul>
+  <!-- Pills navs -->
+  
+  <!-- Pills content -->
+  <div class="tab-content">
+	<div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+	  <form>
+		<div class="text-center mb-3">
+		  <p>Sign in with:</p>
+		  <button type="button" class="btn btn-link btn-floating mx-1">
+			<i class="fab fa-facebook-f"></i>
+		  </button>
+  
+		  <button type="button" class="btn btn-link btn-floating mx-1">
+			<i class="fab fa-google"></i>
+		  </button>
+  
+		  <button type="button" class="btn btn-link btn-floating mx-1">
+			<i class="fab fa-twitter"></i>
+		  </button>
+  
+		  <button type="button" class="btn btn-link btn-floating mx-1">
+			<i class="fab fa-github"></i>
+		  </button>
 		</div>
+  
+		<p class="text-center">or:</p>
+  
+		<!-- Email input -->
+		<div class="form-outline mb-4">
+		  <input type="email" id="loginName" class="form-control" />
+		  <label class="form-label" for="loginName">Email or username</label>
+		</div>
+  
+		<!-- Password input -->
+		<div class="form-outline mb-4">
+		  <input type="password" id="loginPassword" class="form-control" />
+		  <label class="form-label" for="loginPassword">Password</label>
+		</div>
+  
+		<!-- 2 column grid layout -->
+		<div class="row mb-4">
+		  <div class="col-md-6 d-flex justify-content-center">
+			<!-- Checkbox -->
+			<div class="form-check mb-3 mb-md-0">
+			  <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
+			  <label class="form-check-label" for="loginCheck"> Remember me </label>
+			</div>
+		  </div>
+  
+		  <div class="col-md-6 d-flex justify-content-center">
+			<!-- Simple link -->
+			<a href="#!">Forgot password?</a>
+		  </div>
+		</div>
+  
+		<!-- Submit button -->
+		<button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+  
+		<!-- Register buttons -->
+		<div class="text-center">
+		  <p>Not a member? <a href="#!">Register</a></p>
+		</div>
+	  </form>
 	</div>
-	
-
-	<div id="dropDownSelect1"></div>
-	
-<!--===============================================================================================-->
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/daterangepicker/moment.min.js"></script>
-	<script src="vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
-
+	<div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+	  <form>
+		<div class="text-center mb-3">
+		  <p>Sign up with:</p>
+		  <button type="button" class="btn btn-link btn-floating mx-1">
+			<i class="fab fa-facebook-f"></i>
+		  </button>
+  
+		  <button type="button" class="btn btn-link btn-floating mx-1">
+			<i class="fab fa-google"></i>
+		  </button>
+  
+		  <button type="button" class="btn btn-link btn-floating mx-1">
+			<i class="fab fa-twitter"></i>
+		  </button>
+  
+		  <button type="button" class="btn btn-link btn-floating mx-1">
+			<i class="fab fa-github"></i>
+		  </button>
+		</div>
+  
+		<p class="text-center">or:</p>
+  
+		<!-- Name input -->
+		<div class="form-outline mb-4">
+		  <input type="text" id="registerName" class="form-control" />
+		  <label class="form-label" for="registerName">Name</label>
+		</div>
+  
+		<!-- Username input -->
+		<div class="form-outline mb-4">
+		  <input type="text" id="registerUsername" class="form-control" />
+		  <label class="form-label" for="registerUsername">Username</label>
+		</div>
+  
+		<!-- Email input -->
+		<div class="form-outline mb-4">
+		  <input type="email" id="registerEmail" class="form-control" />
+		  <label class="form-label" for="registerEmail">Email</label>
+		</div>
+  
+		<!-- Password input -->
+		<div class="form-outline mb-4">
+		  <input type="password" id="registerPassword" class="form-control" />
+		  <label class="form-label" for="registerPassword">Password</label>
+		</div>
+  
+		<!-- Repeat Password input -->
+		<div class="form-outline mb-4">
+		  <input type="password" id="registerRepeatPassword" class="form-control" />
+		  <label class="form-label" for="registerRepeatPassword">Repeat password</label>
+		</div>
+  
+		<!-- Checkbox -->
+		<div class="form-check d-flex justify-content-center mb-4">
+		  <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
+			aria-describedby="registerCheckHelpText" />
+		  <label class="form-check-label" for="registerCheck">
+			I have read and agree to the terms
+		  </label>
+		</div>
+  
+		<!-- Submit button -->
+		<button type="submit" class="btn btn-primary btn-block mb-3">Sign in</button>
+	  </form>
+	</div>
+  </div>
+  <!-- Pills content -->
 </body>
+<script src="app.js"></script>
 </html>

@@ -1,0 +1,44 @@
+/* Style nav pills */
+.nav-pills .nav-link {
+    color: #555;
+  }
+  
+  .nav-pills .nav-link.active {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  /* Style social login buttons */  
+  .btn-floating {
+    margin: 0 10px;
+  }
+  
+  /* Style main form sections */
+  .form-outline {
+    margin-bottom: 15px; 
+  }
+  
+  /* Style checkbox and forgot password section */
+  .row.mb-4 {
+    align-items: center;
+  }
+  
+  .col-md-6 {
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Style submit buttons */
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0062cc;
+  }
+  
+  /* Style bottom text */
+  .text-center p {
+    margin-bottom: 0;
+  }
