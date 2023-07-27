@@ -1,6 +1,12 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f8f8f8;
+  background-image: url(src/assets/FoodAndDrinkDesignColour.svg);
+  /*make bg image fit*/
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
   margin: 0;
   padding: 0;
 }
@@ -9,7 +15,7 @@ body {
   max-width: 800px;
   margin: auto;
   padding: 20px;
-  background-color: #fff;
+  background-color: #ebd5a8;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

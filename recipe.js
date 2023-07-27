@@ -5,7 +5,9 @@ async function getRecipeInformation(recipeId) {
   
       // Fetch data from the Spoonacular API for the specific recipe
       const response = await fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${apiKey}`);
+      // Log the response.json() to see its contents in the console
       const recipeInfo = await response.json();
+      
   
       return recipeInfo;
     } catch (error) {
