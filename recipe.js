@@ -15,25 +15,24 @@ async function getRecipeInformation(recipeId) {
   }
   
   // Function to display detailed recipe information, including steps
-  function displayDetailedRecipe(recipeInfo) {
+  function displayDetailedRecipe(recipe) {
     const recipeContainer = document.getElementById("recipeContainer");
     recipeContainer.innerHTML = '';
   
     const recipeElement = document.createElement('div');
     recipeElement.innerHTML = `
-      <h2>${recipeInfo.title}</h2>
-      <p>Missing Ingredients: ${recipeInfo.missedIngredientCount}</p>
-      <p>Used Ingredients: ${recipeInfo.usedIngredientCount}</p>
-      <p>Likes: ${recipeInfo.likes}</p>
-      <img src="${recipeInfo.image}" alt="${recipeInfo.title}" width="200">
+      <div class="recipe-card">
+        <h2>${recipe.title}</h2>
+        <img src="${recipe.image}" alt="${recipe.title}" width="200">
+      </div>
     `;
   
     // Check if analyzedInstructions array exists and has elements
-    if (recipeInfo.analyzedInstructions && recipeInfo.analyzedInstructions.length > 0) {
+    if (recipe.analyzedInstructions && recipe.analyzedInstructions.length > 0) {
       recipeElement.innerHTML += `
         <h3>Instructions:</h3>
         <ol>
-          ${recipeInfo.analyzedInstructions[0].steps.map(step => `<li>${step.step}</li>`).join('')}
+          ${recipe.analyzedInstructions[0].steps.map(step => `<li>${step.step}</li>`).join('')}
         </ol>
       `;
     } else {
@@ -44,7 +43,7 @@ async function getRecipeInformation(recipeId) {
   }
   
   // Function to generate recipe from ingredients
-async function generateRecipe() {
+  async function generateRecipe() {
     const ingredientsInput = document.getElementById("ingredients");
     const ingredients = ingredientsInput.value.split(",").map(item => item.trim());
   
@@ -61,36 +60,18 @@ async function generateRecipe() {
       const response = await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientsQuery}&apiKey=${apiKey}`);
       const recipes = await response.json();
   
-      // Display only the first three recommended recipes
-      const recommendedRecipes = recipes.slice(0, 3);
-      const recipeContainer = document.getElementById("recipeContainer");
-      recipeContainer.innerHTML = '';
-  
-      if (recommendedRecipes.length === 0) {
-        recipeContainer.innerHTML = '<p>No recipe found with the provided ingredients.</p>';
+      // Display only the first recommended recipe, if available
+      if (recipes.length > 0) {
+        const recipe = recipes[0];
+        displayDetailedRecipe(await getRecipeInformation(recipe.id));
       } else {
-        recommendedRecipes.forEach(recipe => {
-          const recipeElement = document.createElement('div');
-          recipeElement.innerHTML = `
-            <div class="recipe-card">
-              <h2>${recipe.title}</h2>
-              <p>Missing Ingredients: ${recipe.missedIngredientCount}</p>
-              <p>Used Ingredients: ${recipe.usedIngredientCount}</p>
-              <p>Likes: ${recipe.likes}</p>
-              <img src="${recipe.image}" alt="${recipe.title}" width="200">
-            </div>
-          `;
-          recipeContainer.appendChild(recipeElement);
-        });
-  
-        // Display the detailed recipe information for the first recommended recipe
-        displayDetailedRecipe(await getRecipeInformation(recommendedRecipes[0].id));
+        const recipeContainer = document.getElementById("recipeContainer");
+        recipeContainer.innerHTML = '<p>No recipe found with the provided ingredients.</p>';
       }
     } catch (error) {
       console.error('Error fetching recipes:', error);
     }
   }
-  
   
   // Key event listener to submit form on Enter key press
   document.getElementById("ingredients").addEventListener("keyup", function(event) {
