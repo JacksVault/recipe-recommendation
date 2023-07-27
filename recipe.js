@@ -1,4 +1,49 @@
-// Function to generate recipe from ingredients
+// Function to get detailed recipe information
+async function getRecipeInformation(recipeId) {
+    try {
+      const apiKey = '360a14cd6bcb4ace911786c687939dbc'; // Replace this with your Spoonacular API key
+  
+      // Fetch data from the Spoonacular API for the specific recipe
+      const response = await fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${apiKey}`);
+      const recipeInfo = await response.json();
+  
+      return recipeInfo;
+    } catch (error) {
+      console.error('Error fetching recipe information:', error);
+      return null;
+    }
+  }
+  
+  // Function to display detailed recipe information, including steps
+  function displayDetailedRecipe(recipeInfo) {
+    const recipeContainer = document.getElementById("recipeContainer");
+    recipeContainer.innerHTML = '';
+  
+    const recipeElement = document.createElement('div');
+    recipeElement.innerHTML = `
+      <h2>${recipeInfo.title}</h2>
+      <p>Missing Ingredients: ${recipeInfo.missedIngredientCount}</p>
+      <p>Used Ingredients: ${recipeInfo.usedIngredientCount}</p>
+      <p>Likes: ${recipeInfo.likes}</p>
+      <img src="${recipeInfo.image}" alt="${recipeInfo.title}" width="200">
+    `;
+  
+    // Check if analyzedInstructions array exists and has elements
+    if (recipeInfo.analyzedInstructions && recipeInfo.analyzedInstructions.length > 0) {
+      recipeElement.innerHTML += `
+        <h3>Instructions:</h3>
+        <ol>
+          ${recipeInfo.analyzedInstructions[0].steps.map(step => `<li>${step.step}</li>`).join('')}
+        </ol>
+      `;
+    } else {
+      recipeElement.innerHTML += '<p>No instructions found for this recipe.</p>';
+    }
+  
+    recipeContainer.appendChild(recipeElement);
+  }
+  
+  // Function to generate recipe from ingredients
 async function generateRecipe() {
     const ingredientsInput = document.getElementById("ingredients");
     const ingredients = ingredientsInput.value.split(",").map(item => item.trim());
@@ -16,66 +61,41 @@ async function generateRecipe() {
       const response = await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientsQuery}&apiKey=${apiKey}`);
       const recipes = await response.json();
   
-      // Display the recipe(s) on the page
+      // Display only the first three recommended recipes
+      const recommendedRecipes = recipes.slice(0, 3);
       const recipeContainer = document.getElementById("recipeContainer");
       recipeContainer.innerHTML = '';
   
-      if (recipes.length === 0) {
+      if (recommendedRecipes.length === 0) {
         recipeContainer.innerHTML = '<p>No recipe found with the provided ingredients.</p>';
       } else {
-        recipes.forEach(recipe => {
+        recommendedRecipes.forEach(recipe => {
           const recipeElement = document.createElement('div');
           recipeElement.innerHTML = `
-            <h2>${recipe.title}</h2>
-            <p>Missing Ingredients: ${recipe.missedIngredientCount}</p>
-            <p>Used Ingredients: ${recipe.usedIngredientCount}</p>
-            <p>Likes: ${recipe.likes}</p>
-            <img src="${recipe.image}" alt="${recipe.title}" width="200">
+            <div class="recipe-card">
+              <h2>${recipe.title}</h2>
+              <p>Missing Ingredients: ${recipe.missedIngredientCount}</p>
+              <p>Used Ingredients: ${recipe.usedIngredientCount}</p>
+              <p>Likes: ${recipe.likes}</p>
+              <img src="${recipe.image}" alt="${recipe.title}" width="200">
+            </div>
           `;
           recipeContainer.appendChild(recipeElement);
         });
   
-        // Save the first recipe to local storage
-        saveRecipeToLocalStorage(recipes[0]);
+        // Display the detailed recipe information for the first recommended recipe
+        displayDetailedRecipe(await getRecipeInformation(recommendedRecipes[0].id));
       }
     } catch (error) {
       console.error('Error fetching recipes:', error);
-      console.log('Error fetching recipes:');
     }
   }
   
-  // Function to save recipe data to local storage
-  function saveRecipeToLocalStorage(recipe) {
-    localStorage.setItem('savedRecipe', JSON.stringify(recipe));
-  }
   
-  // Function to retrieve recipe data from local storage
-  function getSavedRecipeFromLocalStorage() {
-    const savedRecipe = localStorage.getItem('savedRecipe');
-    return savedRecipe ? JSON.parse(savedRecipe) : null;
-  }
-  
-  // Function to display recipe on the page
-  function displayRecipe(recipe) {
-    const recipeContainer = document.getElementById("recipeContainer");
-    recipeContainer.innerHTML = '';
-  
-    const recipeElement = document.createElement('div');
-    recipeElement.innerHTML = `
-      <h2>${recipe.title}</h2>
-      <p>Missing Ingredients: ${recipe.missedIngredientCount}</p>
-      <p>Used Ingredients: ${recipe.usedIngredientCount}</p>
-      <p>Likes: ${recipe.likes}</p>
-      <img src="${recipe.image}" alt="${recipe.title}" width="200">
-    `;
-    recipeContainer.appendChild(recipeElement);
-  }
-  
-  // Check if there's a saved recipe in local storage on page load
-  document.addEventListener('DOMContentLoaded', () => {
-    const savedRecipe = getSavedRecipeFromLocalStorage();
-    if (savedRecipe) {
-      displayRecipe(savedRecipe);
+  // Key event listener to submit form on Enter key press
+  document.getElementById("ingredients").addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+      generateRecipe();
     }
   });
   

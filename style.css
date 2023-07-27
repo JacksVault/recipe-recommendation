@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-  max-width: 600px;
+  max-width: 800px;
   margin: auto;
   padding: 20px;
   background-color: #fff;
@@ -36,11 +36,24 @@ h1 {
   margin-top: 30px;
 }
 
-#recipeContainer h2 {
+.recipe-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.recipe-title {
+  font-size: 18px;
+  font-weight: bold;
   margin-bottom: 10px;
 }
 
-#recipeContainer img {
+.recipe-details {
+  margin-bottom: 5px;
+}
+
+.recipe-image {
   max-width: 100%;
   border-radius: 5px;
   margin-bottom: 10px;
