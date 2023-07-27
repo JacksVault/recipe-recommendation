@@ -69,27 +69,26 @@ async function generateRecipe() {
       if (recommendedRecipes.length === 0) {
         recipeContainer.innerHTML = '<p>No recipe found with the provided ingredients.</p>';
       } else {
-        recommendedRecipes.forEach(recipe => {
+        for (const recipe of recommendedRecipes) {
+          const detailedRecipe = await getRecipeInformation(recipe.id);
           const recipeElement = document.createElement('div');
           recipeElement.innerHTML = `
             <div class="recipe-card">
-              <h2>${recipe.title}</h2>
-              <p>Missing Ingredients: ${recipe.missedIngredientCount}</p>
-              <p>Used Ingredients: ${recipe.usedIngredientCount}</p>
-              <p>Likes: ${recipe.likes}</p>
-              <img src="${recipe.image}" alt="${recipe.title}" width="200">
+              <h2>${detailedRecipe.title}</h2>
+              <p>Missing Ingredients: ${detailedRecipe.missedIngredientCount}</p>
+              <p>Used Ingredients: ${detailedRecipe.usedIngredientCount}</p>
+              <p>Likes: ${detailedRecipe.likes}</p>
+              <img src="${detailedRecipe.image}" alt="${detailedRecipe.title}" width="200">
             </div>
           `;
           recipeContainer.appendChild(recipeElement);
-        });
-  
-        // Display the detailed recipe information for the first recommended recipe
-        displayDetailedRecipe(await getRecipeInformation(recommendedRecipes[0].id));
+        }
       }
     } catch (error) {
       console.error('Error fetching recipes:', error);
     }
   }
+  
   
   
   // Key event listener to submit form on Enter key press
